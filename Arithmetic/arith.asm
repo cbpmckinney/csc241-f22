@@ -1,5 +1,5 @@
 .data
-
+    //testing adding a comment
     mystring: .asciz "Result: %i\n"
 
 .text
