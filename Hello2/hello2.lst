@@ -1,0 +1,35 @@
+AARCH64 GAS  hello2.asm 			page 1
+
+
+   1              	.data
+   2 0000 48656C6C 	    hellostr: .asciz "Hello, world!\n"
+   2      6F2C2077 
+   2      6F726C64 
+   2      210A00
+   3              	
+   4              	.text
+   5              	
+   6              	.global main
+   7              	
+   8              	main:
+   9 0000 FD7BBFA9 	    stp x29,x30,[sp,#-16]!
+  10              	
+  11 0004 A0000058 	    ldr x0,=hellostr
+  12 0008 00000094 	    bl  puts
+  13              	
+  14 000c FD7BC1A8 	    ldp x29,x30,[sp],#16
+  15 0010 00008052 	    mov w0,#0
+  16 0014 C0035FD6 	    ret
+  16      00000000 
+  16      00000000 
+AARCH64 GAS  hello2.asm 			page 2
+
+
+DEFINED SYMBOLS
+          hello2.asm:2      .data:0000000000000000 hellostr
+          hello2.asm:8      .text:0000000000000000 main
+          hello2.asm:9      .text:0000000000000000 $x
+          hello2.asm:16     .text:0000000000000018 $d
+
+UNDEFINED SYMBOLS
+puts

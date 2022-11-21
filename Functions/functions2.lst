@@ -1,0 +1,58 @@
+AARCH64 GAS  functions2.asm 			page 1
+
+
+   1              	//Functions and Parameter Passing
+   2              	
+   3              	.data
+   4              	
+   5 0000 54686520 	    outstr: .asciz "The sum of %li and %li is %li.\n"
+   5      73756D20 
+   5      6F662025 
+   5      6C692061 
+   5      6E642025 
+   6              	
+   7              	.text
+   8              	
+   9              	.global main
+  10              	main:
+  11 0000 FD7BBFA9 	    stp x29, x30, [sp,#-16]!
+  12              	
+  13 0004 00008092 	    mov x0,#-1
+  14 0008 E10080D2`  	    mov x1,#7
+  15 000c E007BFA9 	    stp x0, x1, [sp, #-16]!  //stash x0 and x1 on "the stack" 
+  16              	
+  17 0010 08000094 	    bl myfunc
+  18              	
+  19 0014 E30300AA 	    mov x3, x0
+  20 0018 E10BC1A8 	    ldp x1, x2, [sp], #16 //pull x1 and x2 off the stack
+  21 001c 20010058 	    ldr x0, =outstr
+  22 0020 00000094 	    bl printf  //printf(outstr,5,7,12)
+  23              	
+  24 0024 FD7BC1A8 	    ldp x29, x30, [sp],#16
+  25 0028 00008052 	    mov w0, #0
+  26 002c C0035FD6 	    ret
+  27              	
+  28              	//long int myfunc(long int a, long int b)
+  29              	//{return a + b}
+  30              	//long int a comes in x0
+  31              	//long int b comes in x1
+  32              	//answer goes out x0
+  33              	myfunc:
+  34 0030 FD7BBFA9 	    stp x29, x30, [sp, #-16]!
+  35 0034 0000018B 	    add x0, x0, x1
+  36 0038 FD7BC1A8 	    ldp x29, x30, [sp], #16
+  37 003c C0035FD6 	    ret
+  37      00000000 
+  37      00000000 
+AARCH64 GAS  functions2.asm 			page 2
+
+
+DEFINED SYMBOLS
+      functions2.asm:5      .data:0000000000000000 outstr
+      functions2.asm:10     .text:0000000000000000 main
+      functions2.asm:11     .text:0000000000000000 $x
+      functions2.asm:33     .text:0000000000000030 myfunc
+      functions2.asm:37     .text:0000000000000040 $d
+
+UNDEFINED SYMBOLS
+printf

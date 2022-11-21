@@ -1,0 +1,75 @@
+AARCH64 GAS  arith2.asm 			page 1
+
+
+   1              	.data
+   2              	
+   3 0000 EFBEADDE 	num1: .dword 0xFEEDCADEDEADBEEF
+   3      DECAEDFE 
+   4 0008 43617272 	str1: .asciz "Carry is set\n"
+   4      79206973 
+   4      20736574 
+   4      0A00
+   5 0016 43617272 	str2: .asciz "Carry is not set\n"
+   5      79206973 
+   5      206E6F74 
+   5      20736574 
+   5      0A00
+   6              	
+   7              	.text
+   8              	
+   9              	.global main
+  10              	
+  11              	main:
+  12 0000 FD7BBFA9 	    stp x29, x30, [sp, #-16]!
+  13              	
+  14              	    //ldr x0, =num1
+  15              	    //ldr x1, [x0]
+  16 0004 02008092 	    mov x2, #-1
+  17              	    //movz x3, #0xBEEF
+  18              	    //movk x3, #0xDEAD, lsl 16
+  19              	    //movk x3, #0xCADE, lsl 32
+  20              	    //movk x3, #0xFEED, lsl 48
+  21              	
+  22 0008 440080D2 	    mov x4, #2
+  23 000c 850002BA 	    adcs x5, x4, x2
+  24 0010 06423BD5 	    mrs x6, NZCV
+  25 0014 0700BED2 	    movz x7, #0xf000, lsl 16
+  26 0018 07421BD5 	    msr NZCV, x7
+  27              	
+  28 001c 42000054 	    b.cs carryset
+  29 0020 04000014 	    b carrynotset
+  30              	
+  31              	carryset:
+  32 0024 20010058 	    ldr x0, =str1
+  33 0028 00000094 	    bl puts
+  34 002c 03000014 	    b end
+  35              	
+  36              	carrynotset:
+  37 0030 00010058 	    ldr x0, =str2
+  38 0034 00000094 	    bl puts 
+  39              	
+  40              	end:
+  41 0038 FD7BC1A8 	    ldp x29, x30, [sp], #16
+  42 003c 00008052 	    mov w0, #0
+  43 0040 C0035FD6 	    ret
+  44 0044 00000000 	
+  44      00000000 
+  44      00000000 
+  44      00000000 
+  44      00000000 
+AARCH64 GAS  arith2.asm 			page 2
+
+
+DEFINED SYMBOLS
+          arith2.asm:3      .data:0000000000000000 num1
+          arith2.asm:4      .data:0000000000000008 str1
+          arith2.asm:5      .data:0000000000000016 str2
+          arith2.asm:11     .text:0000000000000000 main
+          arith2.asm:12     .text:0000000000000000 $x
+          arith2.asm:31     .text:0000000000000024 carryset
+          arith2.asm:36     .text:0000000000000030 carrynotset
+          arith2.asm:40     .text:0000000000000038 end
+          arith2.asm:44     .text:0000000000000048 $d
+
+UNDEFINED SYMBOLS
+puts
