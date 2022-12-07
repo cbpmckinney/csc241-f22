@@ -5,7 +5,7 @@ unmount:	.asciz "Attempting to unmap devices...\n"
 pin4on:		.asciz "Attempting to power up GPIO Pin 4...\n"
 pin4config: .asciz "Configuring GPIO Pin 4 as output...\n"
 
-gpioconf:	.asciz "Dev 0x%llx: 0x%x\n"
+gpioconf:	.asciz "Dev 0x%llx- 0x%x\n"
 
 
 .equ GPIOFSEL0, 0x3F200000
